@@ -10,13 +10,12 @@ type Config struct {
 	DB_HOST        string
 	DB_NAME        string
 	JWT_KEY        string
-	XENDITH_API    string
 }
 
 func InitConfiguration() Config {
 
 	return Config{
-		SERVER_ADDRESS: GetOrDefault("SERVER_ADDRESS", "0.0.0.0:8080"),
+		SERVER_ADDRESS: GetOrDefault("SERVER_ADDRESS", "0.0.0.0:1323"),
 		DB_USERNAME:    GetOrDefault("DB_USERNAME", "root"),
 		DB_PASSWORD:    GetOrDefault("DB_PASSWORD", ""),
 		DB_NAME:        GetOrDefault("DB_NAME", "ap_pkl"),

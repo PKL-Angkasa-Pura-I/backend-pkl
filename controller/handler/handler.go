@@ -39,5 +39,7 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api := e.Group("/pkl_v1", middleware.CORS())
 
 	m.LogMiddleware(e)
+	api.POST("/admins/login", cont.LoginAdminController)
+
 	api.POST("/divisions", cont.CreateDivisionController)
 }

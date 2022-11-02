@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/config"
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/model"
@@ -23,6 +24,14 @@ func InitDB(conf config.Config) *gorm.DB {
 	DB, err := gorm.Open(mysql.Open(conectionString), &gorm.Config{})
 	if err != nil {
 		fmt.Println("error open conection : ", err)
+	}
+
+	admin := DB.Migrator().HasTable(&model.Admin{})
+	if !admin {
+		DB.Migrator().CreateTable(&model.Admin{})
+		DB.Model(&model.Admin{}).Create([]map[string]interface{}{
+			{"username": "admin", "password": "admin123", "created_at": time.Now()},
+		})
 	}
 
 	DB.AutoMigrate(&model.Division{})

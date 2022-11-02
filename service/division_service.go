@@ -12,3 +12,7 @@ func (s *svc) CreateDivisionService(division model.Division) error {
 	}
 	return s.repo.CreateDivision(division)
 }
+
+func (s *svc) GetAllDivisionService() []model.Division {
+	return s.repo.GetAllDivision()
+}

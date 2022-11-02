@@ -14,3 +14,10 @@ func (r *repositoryMysqlLayer) CreateDivision(division model.Division) error {
 
 	return nil
 }
+
+func (r *repositoryMysqlLayer) GetAllDivision() []model.Division {
+	divisions := []model.Division{}
+	r.DB.Find(&divisions)
+
+	return divisions
+}

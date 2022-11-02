@@ -41,5 +41,6 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	m.LogMiddleware(e)
 	api.POST("/admins/login", cont.LoginAdminController)
 
-	api.POST("/divisions", cont.CreateDivisionController)
+	api.POST("/divisions", cont.CreateDivisionController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.GET("/divisions", cont.GetAllDivisionController)
 }

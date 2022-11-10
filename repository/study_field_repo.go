@@ -14,3 +14,19 @@ func (r *repositoryMysqlLayer) CreateStudyField(study_field model.Study_field) e
 
 	return nil
 }
+
+func (r *repositoryMysqlLayer) GetAllStudyField() []model.Study_field {
+	study_fields := []model.Study_field{}
+	r.DB.Find(&study_fields)
+
+	return study_fields
+}
+
+func (r *repositoryMysqlLayer) GetStudyFieldByID(id int) (study_field model.Study_field, err error) {
+	res := r.DB.Where("id = ?", id).Find(&study_field)
+	if res.RowsAffected < 1 {
+		err = fmt.Errorf("study field not found")
+	}
+
+	return
+}

@@ -13,6 +13,8 @@ type AdapterRepository interface {
 	DeleteDivisionByID(id int) error
 
 	CreateStudyField(study_field model.Study_field) error
+	GetAllStudyField() []model.Study_field
+	GetStudyFieldByID(id int) (study_field model.Study_field, err error)
 
 	GetAdminByUsername(username string) (admin model.Admin, err error)
 }
@@ -25,6 +27,8 @@ type AdapterService interface {
 	DeleteDivisionByIDService(id int) error
 
 	CreateStudyFieldService(study_field model.Study_field) error
+	GetAllStudyFieldService() []model.Study_field
+	GetStudyFieldByIDService(id int) (model.Study_field, error)
 
 	LoginAdmin(username, password string) (string, int)
 	GetAdminByUsernameService(username string) (model.Admin, error)

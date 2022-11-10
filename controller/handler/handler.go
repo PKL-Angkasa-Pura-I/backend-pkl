@@ -52,4 +52,6 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api.GET("/study_fields", cont.GetAllStudyFieldController)
 
 	api.GET("/study_fields/:id", cont.GetOneStudyFieldController)
+	api.PUT("/study_fields/:id", cont.UpdateStudyFieldController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.DELETE("/study_fields/:id", cont.DeleteStudyFieldController, middleware.JWT([]byte(conf.JWT_KEY)))
 }

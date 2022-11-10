@@ -30,3 +30,21 @@ func (r *repositoryMysqlLayer) GetStudyFieldByID(id int) (study_field model.Stud
 
 	return
 }
+
+func (r *repositoryMysqlLayer) UpdateStudyFieldByID(id int, study_field model.Study_field) error {
+	res := r.DB.Where("id = ?", id).UpdateColumns(&study_field)
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error update study field")
+	}
+
+	return nil
+}
+
+func (r *repositoryMysqlLayer) DeleteStudyFieldByID(id int) error {
+	res := r.DB.Unscoped().Delete(&model.Study_field{}, id)
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error delete study field")
+	}
+
+	return nil
+}

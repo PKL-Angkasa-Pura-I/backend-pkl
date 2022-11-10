@@ -64,3 +64,60 @@ func (ce *EchoController) GetOneStudyFieldController(c echo.Context) error {
 		"study_field": res,
 	})
 }
+
+func (ce *EchoController) UpdateStudyFieldController(c echo.Context) error {
+
+	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+
+	_, err := ce.Svc.GetAdminByUsernameService(username)
+	if err != nil {
+		return c.JSON(403, map[string]interface{}{
+			"messages": "forbidden",
+		})
+	}
+
+	id := c.Param("id")
+	id_int, _ := strconv.Atoi(id)
+
+	study_field := model.Study_field{}
+	if err := c.Bind(&study_field); err != nil {
+		return c.JSON(400, map[string]interface{}{
+			"messages": err.Error(),
+		})
+	}
+
+	err = ce.Svc.UpdateStudyFieldByIDService(id_int, study_field)
+	if err != nil {
+		return c.JSON(404, map[string]interface{}{
+			"messages": "no id found or no change",
+		})
+	}
+
+	return c.JSON(200, map[string]interface{}{
+		"messages": "updated",
+	})
+}
+
+func (ce *EchoController) DeleteStudyFieldController(c echo.Context) error {
+	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+
+	_, err := ce.Svc.GetAdminByUsernameService(username)
+	if err != nil {
+		return c.JSON(403, map[string]interface{}{
+			"messages": "forbidden",
+		})
+	}
+
+	id := c.Param("id")
+	id_int, _ := strconv.Atoi(id)
+	err = ce.Svc.DeleteStudyFieldByIDService(id_int)
+	if err != nil {
+		return c.JSON(404, map[string]interface{}{
+			"messages": "division not found",
+		})
+	}
+
+	return c.JSON(204, map[string]interface{}{
+		"messages": "deleted",
+	})
+}

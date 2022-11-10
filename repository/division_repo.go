@@ -21,3 +21,30 @@ func (r *repositoryMysqlLayer) GetAllDivision() []model.Division {
 
 	return divisions
 }
+
+func (r *repositoryMysqlLayer) GetDivisionByID(id int) (division model.Division, err error) {
+	res := r.DB.Where("id = ?", id).Find(&division)
+	if res.RowsAffected < 1 {
+		err = fmt.Errorf("division not found")
+	}
+
+	return
+}
+
+func (r *repositoryMysqlLayer) UpdateDivisionByID(id int, division model.Division) error {
+	res := r.DB.Where("id = ?", id).UpdateColumns(&division)
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error update division")
+	}
+
+	return nil
+}
+
+func (r *repositoryMysqlLayer) DeleteDivisionByID(id int) error {
+	res := r.DB.Unscoped().Delete(&model.Division{}, id)
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error delete division")
+	}
+
+	return nil
+}

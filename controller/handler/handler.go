@@ -43,4 +43,8 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 
 	api.POST("/divisions", cont.CreateDivisionController, middleware.JWT([]byte(conf.JWT_KEY)))
 	api.GET("/divisions", cont.GetAllDivisionController)
+
+	api.GET("/divisions/:id", cont.GetOneDivisionController)
+	api.PUT("/divisions/:id", cont.UpdateDivisionController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.DELETE("/divisions/:id", cont.DeleteDivisionController, middleware.JWT([]byte(conf.JWT_KEY)))
 }

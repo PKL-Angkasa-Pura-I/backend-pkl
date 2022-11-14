@@ -4,7 +4,7 @@ services:
       image: "mysql:latest"
       restart: always
       ports:
-        - "3307:3307"
+        - "3307:3306"
       environment:
         MYSQL_ROOT_PASSWORD : anakbaru
         MYSQL_DATABASE: ap_pkl
@@ -22,16 +22,10 @@ services:
       DB_HOST: "db_pkl_app"
       DB_PORT: "3307"
     ports:
-      - "1323:1323"
+      - "1323:8080"
     depends_on: 
       db_pkl_app:
         condition: service_healthy # memastikan kalau sudah bisa konek dan login sesuai healthcheck
-
-  adminer:
-        image: adminer
-        restart: always
-        ports:
-            - 8080:8080
         
 volumes:
   my-pklvolume:

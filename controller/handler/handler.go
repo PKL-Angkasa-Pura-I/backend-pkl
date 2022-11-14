@@ -41,17 +41,17 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	m.LogMiddleware(e)
 	api.POST("/admins/login", cont.LoginAdminController)
 
-	api.POST("/divisions", cont.CreateDivisionController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.POST("/divisions", cont.CreateDivisionController)
 	api.GET("/divisions", cont.GetAllDivisionController)
 
 	api.GET("/divisions/:id", cont.GetOneDivisionController)
-	api.PUT("/divisions/:id", cont.UpdateDivisionController, middleware.JWT([]byte(conf.JWT_KEY)))
-	api.DELETE("/divisions/:id", cont.DeleteDivisionController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.PUT("/divisions/:id", cont.UpdateDivisionController)
+	api.DELETE("/divisions/:id", cont.DeleteDivisionController)
 
-	api.POST("/study_fields", cont.CreateStudyFieldController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.POST("/study_fields", cont.CreateStudyFieldController)
 	api.GET("/study_fields", cont.GetAllStudyFieldController)
 
 	api.GET("/study_fields/:id", cont.GetOneStudyFieldController)
-	api.PUT("/study_fields/:id", cont.UpdateStudyFieldController, middleware.JWT([]byte(conf.JWT_KEY)))
-	api.DELETE("/study_fields/:id", cont.DeleteStudyFieldController, middleware.JWT([]byte(conf.JWT_KEY)))
+	api.PUT("/study_fields/:id", cont.UpdateStudyFieldController)
+	api.DELETE("/study_fields/:id", cont.DeleteStudyFieldController)
 }

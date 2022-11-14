@@ -25,3 +25,13 @@ func (r *repositoryMysqlLayer) GetAllDivisionField(division_id int) []model.List
 
 	return res
 }
+
+func (r *repositoryMysqlLayer) DeleteOnePivotDivisionField(division_id, study_field_id int) error {
+	res := r.DB.Unscoped().Where("division_id = ? AND study_field_id = ?", division_id, study_field_id).Delete(&model.Pivot_division_field{})
+
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error delete, division and study field not found")
+	}
+
+	return nil
+}

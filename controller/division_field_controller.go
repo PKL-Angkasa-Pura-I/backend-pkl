@@ -71,3 +71,27 @@ func (ce *EchoController) GetAllDivisionFieldController(c echo.Context) error {
 		"list_study_field": list,
 	})
 }
+
+func (ce *EchoController) DeleteOnePivotDivisionFieldController(c echo.Context) error {
+
+	id := c.Param("id_division")
+	id_int, _ := strconv.Atoi(id)
+
+	pivot_division_field := model.Pivot_division_field{}
+	if err := c.Bind(&pivot_division_field); err != nil {
+		return c.JSON(400, map[string]interface{}{
+			"messages": err.Error(),
+		})
+	}
+
+	err := ce.Svc.DeleteOnePivotDivisionFieldService(int(id_int), int(pivot_division_field.Study_fieldID))
+	if err != nil {
+		return c.JSON(404, map[string]interface{}{
+			"messages": "division or study field not found",
+		})
+	}
+
+	return c.JSON(204, map[string]interface{}{
+		"messages": "deleted",
+	})
+}

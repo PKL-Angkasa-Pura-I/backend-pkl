@@ -20,6 +20,7 @@ type AdapterRepository interface {
 
 	CreatePivotDivisionField(pivot_division_field model.Pivot_division_field) error
 	GetAllDivisionField(division_id int) []model.List_division_field
+	DeleteOnePivotDivisionField(division_id, study_field_id int) error
 
 	GetAdminByUsername(username string) (admin model.Admin, err error)
 }
@@ -39,6 +40,7 @@ type AdapterService interface {
 
 	CreatePivotDivisionFieldService(pivot_division_field model.Pivot_division_field) error
 	GetAllDivisionFieldService(division_id int) []model.List_division_field
+	DeleteOnePivotDivisionFieldService(division_id, study_field_id int) error
 
 	LoginAdmin(username, password string) (string, int)
 	GetAdminByUsernameService(username string) (model.Admin, error)

@@ -14,7 +14,7 @@ services:
         test: ["CMD", "mysql", "-u", "root",  "-panakbaru", "-e", "show schemas"]
         interval: 10s 
       
-  be_app:
+  be_pkl_app:
     build: .
     restart: always
     environment:
@@ -23,7 +23,7 @@ services:
     ports:
       - "1323:8080"
     depends_on: 
-      db_app:
+      db_pkl_app:
         condition: service_healthy # memastikan kalau sudah bisa konek dan login sesuai healthcheck
 
   adminer:

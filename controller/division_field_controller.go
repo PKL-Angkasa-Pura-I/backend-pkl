@@ -50,3 +50,24 @@ func (ce *EchoController) CreatePivotDivisionFieldController(c echo.Context) err
 		"study_field_name": pivot_division_field.Study_field.Name,
 	})
 }
+
+func (ce *EchoController) GetAllDivisionFieldController(c echo.Context) error {
+
+	id := c.Param("id_division")
+	id_int, _ := strconv.Atoi(id)
+
+	res, err := ce.Svc.GetDivisionByIDService(id_int)
+	if err != nil {
+		return c.JSON(404, map[string]interface{}{
+			"messages": "Division not found",
+		})
+	}
+
+	list := ce.Svc.GetAllDivisionFieldService(int(res.ID))
+
+	return c.JSON(200, map[string]interface{}{
+		"messages":         "success",
+		"division":         res.Name,
+		"list_study_field": list,
+	})
+}

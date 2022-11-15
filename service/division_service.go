@@ -26,5 +26,9 @@ func (s *svc) UpdateDivisionByIDService(id int, division model.Division) error {
 }
 
 func (s *svc) DeleteDivisionByIDService(id int) error {
-	return s.repo.DeleteDivisionByID(id)
+	_, err := s.repo.CheckDivisionByID(id)
+	if err != nil {
+		return s.repo.DeleteDivisionByID(id)
+	}
+	return fmt.Errorf("can't delete division, constraint with division field")
 }

@@ -43,7 +43,7 @@ func (r *repositoryMysqlLayer) UpdateDivisionByID(id int, division model.Divisio
 func (r *repositoryMysqlLayer) DeleteDivisionByID(id int) error {
 	res := r.DB.Unscoped().Delete(&model.Division{}, id)
 	if res.RowsAffected < 1 {
-		return fmt.Errorf("error delete division")
+		return fmt.Errorf("error delete division, division not found")
 	}
 
 	return nil

@@ -21,6 +21,8 @@ type AdapterRepository interface {
 	CreatePivotDivisionField(pivot_division_field model.Pivot_division_field) error
 	GetAllDivisionField(division_id int) []model.List_division_field
 	DeleteOnePivotDivisionField(division_id, study_field_id int) error
+	CheckDivisionByID(id int) (pivot_division_field model.Pivot_division_field, err error)
+	CheckStudyFieldByID(id int) (pivot_division_field model.Pivot_division_field, err error)
 
 	GetAdminByUsername(username string) (admin model.Admin, err error)
 }

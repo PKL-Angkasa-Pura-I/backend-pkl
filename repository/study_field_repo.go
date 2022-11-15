@@ -43,7 +43,7 @@ func (r *repositoryMysqlLayer) UpdateStudyFieldByID(id int, study_field model.St
 func (r *repositoryMysqlLayer) DeleteStudyFieldByID(id int) error {
 	res := r.DB.Unscoped().Delete(&model.Study_field{}, id)
 	if res.RowsAffected < 1 {
-		return fmt.Errorf("error delete study field")
+		return fmt.Errorf("error delete study field, study field not found")
 	}
 
 	return nil

@@ -29,5 +29,9 @@ func (s *svc) UpdateStudyFieldByIDService(id int, study_field model.Study_field)
 }
 
 func (s *svc) DeleteStudyFieldByIDService(id int) error {
-	return s.repo.DeleteStudyFieldByID(id)
+	_, err := s.repo.CheckStudyFieldByID(id)
+	if err != nil {
+		return s.repo.DeleteStudyFieldByID(id)
+	}
+	return fmt.Errorf("can't delete study field, constraint with division field")
 }

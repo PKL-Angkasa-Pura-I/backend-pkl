@@ -112,7 +112,7 @@ func (ce *EchoController) DeleteStudyFieldController(c echo.Context) error {
 	err := ce.Svc.DeleteStudyFieldByIDService(id_int)
 	if err != nil {
 		return c.JSON(404, map[string]interface{}{
-			"messages": "division not found",
+			"messages": err.Error(),
 		})
 	}
 

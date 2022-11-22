@@ -3,13 +3,13 @@ package model
 import "time"
 
 type Admin struct {
-	ID        uint      `gorm:"primaryKey;autoIncrement" json:"id"`
-	Username  string    `gorm:"uniqueIndex;size:30" json:"username"`
-	Password  string    `json:"password"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        uint      `gorm:"primaryKey;autoIncrement" json:"id" form:"id"`
+	Username  string    `gorm:"uniqueIndex;size:30" json:"username" form:"username"`
+	Password  string    `json:"password" form:"password"`
+	CreatedAt time.Time `json:"created_at" form:"created_at"`
 }
 
 type AdminLogin struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `json:"username" form:"username"`
+	Password string `json:"password" form:"password"`
 }

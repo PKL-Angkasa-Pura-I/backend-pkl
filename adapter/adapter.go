@@ -26,7 +26,9 @@ type AdapterRepository interface {
 
 	CreateSubmission(submission model.Submission) error
 	GetSubmissionByCodeSubmission(code_submission string) (submission model.Submission, err error)
+	GetSubmissionByID(id int) (submission model.Submission, err error)
 	UpdateSubmissionByID(id int, submission model.Submission) error
+	GetAllSubmission() []model.Submission
 
 	GetAdminByUsername(username string) (admin model.Admin, err error)
 }
@@ -49,6 +51,9 @@ type AdapterService interface {
 	DeleteOnePivotDivisionFieldService(division_id, study_field_id int) error
 
 	CreateSubmissionService(submission model.Submission) (string, error)
+	GetAllSubmissionService() []model.Submission
+	GetSubmissionByCodeSubmissionService(code_submission string) (model.Submission, error)
+	GetSubmissionByIDService(id int) (model.Submission, error)
 
 	LoginAdmin(username, password string) (string, int)
 	GetAdminByUsernameService(username string) (model.Admin, error)

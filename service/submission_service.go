@@ -38,3 +38,15 @@ func (s *svc) CreateSubmissionService(submission model.Submission) (string, erro
 
 	return res.CodeSubmission, nil
 }
+
+func (s *svc) GetAllSubmissionService() []model.Submission {
+	return s.repo.GetAllSubmission()
+}
+
+func (s *svc) GetSubmissionByCodeSubmissionService(code_submission string) (model.Submission, error) {
+	return s.repo.GetSubmissionByCodeSubmission(code_submission)
+}
+
+func (s *svc) GetSubmissionByIDService(id int) (model.Submission, error) {
+	return s.repo.GetSubmissionByID(id)
+}

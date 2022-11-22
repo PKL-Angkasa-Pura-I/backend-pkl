@@ -60,4 +60,9 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api.DELETE("/list_division_fields/:id_division", cont.DeleteOnePivotDivisionFieldController)
 
 	api.POST("/submissions", cont.CreateSubmissionController)
+	api.GET("/submissions", cont.GetAllSubmissionController)
+
+	api.GET("/submissions/:id_code", cont.GetOneSubmissionController)
+
+	api.GET("/submissions/:id_code/download", cont.GetFileSubmissionController)
 }

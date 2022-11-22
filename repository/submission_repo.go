@@ -25,6 +25,15 @@ func (r *repositoryMysqlLayer) GetSubmissionByCodeSubmission(code_submission str
 	return
 }
 
+func (r *repositoryMysqlLayer) GetSubmissionByID(id int) (submission model.Submission, err error) {
+	res := r.DB.Where("id = ?", id).Preload(clause.Associations).Find(&submission)
+	if res.RowsAffected < 1 {
+		err = fmt.Errorf("id submission not found")
+	}
+
+	return
+}
+
 func (r *repositoryMysqlLayer) UpdateSubmissionByID(id int, submission model.Submission) error {
 	res := r.DB.Where("id = ?", id).UpdateColumns(&submission)
 	if res.RowsAffected < 1 {
@@ -32,4 +41,11 @@ func (r *repositoryMysqlLayer) UpdateSubmissionByID(id int, submission model.Sub
 	}
 
 	return nil
+}
+
+func (r *repositoryMysqlLayer) GetAllSubmission() []model.Submission {
+	submissions := []model.Submission{}
+	r.DB.Preload(clause.Associations).Find(&submissions)
+
+	return submissions
 }

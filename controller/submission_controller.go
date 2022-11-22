@@ -1,10 +1,12 @@
 package controller
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/model"
@@ -67,4 +69,67 @@ func (ce *EchoController) CreateSubmissionController(c echo.Context) error {
 		"messages":        "success",
 		"code_submission": res,
 	})
+}
+
+func (ce *EchoController) GetAllSubmissionController(c echo.Context) error {
+
+	submissions := ce.Svc.GetAllSubmissionService()
+
+	return c.JSON(200, map[string]interface{}{
+		"messages":   "success",
+		"submission": submissions,
+	})
+}
+
+func (ce *EchoController) GetOneSubmissionController(c echo.Context) error {
+	var res model.Submission
+	var err error
+	param := c.Param("id_code")
+	if strings.Contains(param, "P-") {
+		res, err = ce.Svc.GetSubmissionByCodeSubmissionService(param)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "submission not found",
+			})
+		}
+	} else {
+		id_int, _ := strconv.Atoi(param)
+		res, err = ce.Svc.GetSubmissionByIDService(id_int)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "submission not found",
+			})
+		}
+	}
+
+	return c.JSON(200, map[string]interface{}{
+		"messages":   "success",
+		"submission": res,
+	})
+}
+
+func (ce *EchoController) GetFileSubmissionController(c echo.Context) error {
+	var res model.Submission
+	var err error
+	param := c.Param("id_code")
+	if strings.Contains(param, "P-") {
+		res, err = ce.Svc.GetSubmissionByCodeSubmissionService(param)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "file submission not found",
+			})
+		}
+	} else {
+		id_int, _ := strconv.Atoi(param)
+		res, err = ce.Svc.GetSubmissionByIDService(id_int)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "file submission not found",
+			})
+		}
+	}
+
+	name_file := fmt.Sprintf("%s%s", res.CodeSubmission, ".pdf")
+
+	return c.Attachment(res.SubmissionPathFile, name_file)
 }

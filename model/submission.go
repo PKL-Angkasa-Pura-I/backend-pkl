@@ -9,7 +9,7 @@ type Submission struct {
 	Email              string      `gorm:"unique;not null" json:"email" form:"email"`
 	SchoolOrigin       string      `gorm:"not null" json:"school_origin" form:"school_origin"`
 	TotalTrainee       int         `gorm:"not null" json:"total_trainee" form:"total_trainee"`
-	Status             string      `gorm:"default:pending" json:"status" form:"status"`
+	Status             string      `gorm:"default:Proses" json:"status" form:"status"`
 	SubmissionPathFile string      `json:"path_file" form:"path_file"`
 	StartDate          time.Time   `gorm:"not null" json:"start_date" form:"start_date"`
 	EndDate            time.Time   `gorm:"not null" json:"end_date" form:"end_date"`

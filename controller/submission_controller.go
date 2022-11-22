@@ -331,3 +331,29 @@ func (ce *EchoController) CancelSubmissionController(c echo.Context) error {
 		"detail":   message,
 	})
 }
+
+func (ce *EchoController) GetFileResponSubmissionController(c echo.Context) error {
+	var res model.Submission
+	var err error
+	param := c.Param("id_code")
+	if strings.Contains(param, "P-") {
+		res, err = ce.Svc.GetSubmissionByCodeSubmissionService(param)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "file submission not found",
+			})
+		}
+	} else {
+		id_int, _ := strconv.Atoi(param)
+		res, err = ce.Svc.GetSubmissionByIDService(id_int)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "file submission not found",
+			})
+		}
+	}
+
+	name_file := fmt.Sprintf("%s%s", res.CodeSubmission, "_respon.pdf")
+
+	return c.Attachment(res.ResponPathFile, name_file)
+}

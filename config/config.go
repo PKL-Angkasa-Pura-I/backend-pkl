@@ -17,7 +17,7 @@ func InitConfiguration() Config {
 	return Config{
 		SERVER_ADDRESS: GetOrDefault("SERVER_ADDRESS", "0.0.0.0:1323"),
 		DB_USERNAME:    GetOrDefault("DB_USERNAME", "root"),
-		DB_PASSWORD:    GetOrDefault("DB_PASSWORD", ""),
+		DB_PASSWORD:    GetOrDefault("DB_PASSWORD", "anakbaru"),
 		DB_NAME:        GetOrDefault("DB_NAME", "ap_pkl"),
 		DB_PORT:        GetOrDefault("DB_PORT", "3306"),
 		DB_HOST:        GetOrDefault("DB_HOST", "127.0.0.1"),

@@ -11,6 +11,7 @@ type Submission struct {
 	TotalTrainee       int         `gorm:"not null" json:"total_trainee" form:"total_trainee"`
 	Status             string      `gorm:"default:Proses" json:"status" form:"status"`
 	SubmissionPathFile string      `json:"path_file" form:"path_file"`
+	ResponPathFile     string      `json:"respon_path_file" form:"respon_path_file"`
 	StartDate          time.Time   `gorm:"not null" json:"start_date" form:"start_date"`
 	EndDate            time.Time   `gorm:"not null" json:"end_date" form:"end_date"`
 	CreatedAt          time.Time   `json:"created_at" form:"created_at"`

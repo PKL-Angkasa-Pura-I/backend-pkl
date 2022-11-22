@@ -50,3 +50,7 @@ func (s *svc) GetSubmissionByCodeSubmissionService(code_submission string) (mode
 func (s *svc) GetSubmissionByIDService(id int) (model.Submission, error) {
 	return s.repo.GetSubmissionByID(id)
 }
+
+func (s *svc) UpdateSubmissionByIDService(id int, submission model.Submission) error {
+	return s.repo.UpdateSubmissionByID(id, submission)
+}

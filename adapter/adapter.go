@@ -54,6 +54,7 @@ type AdapterService interface {
 	GetAllSubmissionService() []model.Submission
 	GetSubmissionByCodeSubmissionService(code_submission string) (model.Submission, error)
 	GetSubmissionByIDService(id int) (model.Submission, error)
+	UpdateSubmissionByIDService(id int, submission model.Submission) error
 
 	LoginAdmin(username, password string) (string, int)
 	GetAdminByUsernameService(username string) (model.Admin, error)

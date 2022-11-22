@@ -34,6 +34,6 @@ func InitDB(conf config.Config) *gorm.DB {
 		})
 	}
 
-	DB.AutoMigrate(&model.Division{}, &model.Study_field{}, &model.Pivot_division_field{})
+	DB.AutoMigrate(&model.Division{}, &model.Study_field{}, &model.Pivot_division_field{}, &model.Submission{})
 	return DB
 }

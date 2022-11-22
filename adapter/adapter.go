@@ -24,6 +24,12 @@ type AdapterRepository interface {
 	CheckDivisionByID(id int) (pivot_division_field model.Pivot_division_field, err error)
 	CheckStudyFieldByID(id int) (pivot_division_field model.Pivot_division_field, err error)
 
+	CreateSubmission(submission model.Submission) error
+	GetSubmissionByCodeSubmission(code_submission string) (submission model.Submission, err error)
+	GetSubmissionByID(id int) (submission model.Submission, err error)
+	UpdateSubmissionByID(id int, submission model.Submission) error
+	GetAllSubmission() []model.Submission
+
 	GetAdminByUsername(username string) (admin model.Admin, err error)
 }
 
@@ -43,6 +49,12 @@ type AdapterService interface {
 	CreatePivotDivisionFieldService(pivot_division_field model.Pivot_division_field) error
 	GetAllDivisionFieldService(division_id int) []model.List_division_field
 	DeleteOnePivotDivisionFieldService(division_id, study_field_id int) error
+
+	CreateSubmissionService(submission model.Submission) (string, error)
+	GetAllSubmissionService() []model.Submission
+	GetSubmissionByCodeSubmissionService(code_submission string) (model.Submission, error)
+	GetSubmissionByIDService(id int) (model.Submission, error)
+	UpdateSubmissionByIDService(id int, submission model.Submission) error
 
 	LoginAdmin(username, password string) (string, int)
 	GetAdminByUsernameService(username string) (model.Admin, error)

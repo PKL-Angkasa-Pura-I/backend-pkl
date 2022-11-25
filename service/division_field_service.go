@@ -22,6 +22,8 @@ func (s *svc) GetAllDivisionStudyFieldService() []model.List_pivot {
 
 	res := make([]model.List_pivot, len_division)
 	for i, division := range divisions {
+		res[i].ID = division.ID
+		res[i].Quota = division.Quota
 		res[i].DivisionName = division.Name
 		list_id_study_field := s.repo.GetDivisionOnPivot(int(division.ID))
 		for i, list := range list_id_study_field {

@@ -53,3 +53,17 @@ func (r *repositoryMysqlLayer) CheckStudyFieldByID(id int) (pivot_division_field
 
 	return
 }
+
+func (r *repositoryMysqlLayer) GetAllDivisionStudyField() []model.Pivot_division_field {
+	res := []model.Pivot_division_field{}
+	r.DB.Find(&res)
+
+	return res
+}
+
+func (r *repositoryMysqlLayer) GetDivisionOnPivot(id int) []model.Pivot_division_field {
+	res := []model.Pivot_division_field{}
+	r.DB.Where("division_id = ?", id).Find(&res)
+
+	return res
+}

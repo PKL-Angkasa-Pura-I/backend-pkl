@@ -23,6 +23,8 @@ type AdapterRepository interface {
 	DeleteOnePivotDivisionField(division_id, study_field_id int) error
 	CheckDivisionByID(id int) (pivot_division_field model.Pivot_division_field, err error)
 	CheckStudyFieldByID(id int) (pivot_division_field model.Pivot_division_field, err error)
+	GetAllDivisionStudyField() []model.Pivot_division_field
+	GetDivisionOnPivot(id int) []model.Pivot_division_field
 
 	CreateSubmission(submission model.Submission) error
 	GetSubmissionByCodeSubmission(code_submission string) (submission model.Submission, err error)
@@ -49,6 +51,7 @@ type AdapterService interface {
 	CreatePivotDivisionFieldService(pivot_division_field model.Pivot_division_field) error
 	GetAllDivisionFieldService(division_id int) []model.List_division_field
 	DeleteOnePivotDivisionFieldService(division_id, study_field_id int) error
+	GetAllDivisionStudyFieldService() []model.List_pivot
 
 	CreateSubmissionService(submission model.Submission) (string, error)
 	GetAllSubmissionService() []model.Submission

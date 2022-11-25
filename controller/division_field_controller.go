@@ -95,3 +95,13 @@ func (ce *EchoController) DeleteOnePivotDivisionFieldController(c echo.Context) 
 		"messages": "deleted",
 	})
 }
+
+func (ce *EchoController) GetAllDivisionStudyFieldController(c echo.Context) error {
+
+	res := ce.Svc.GetAllDivisionStudyFieldService()
+
+	return c.JSON(200, map[string]interface{}{
+		"messages": "success",
+		"data":     res,
+	})
+}

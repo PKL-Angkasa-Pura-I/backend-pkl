@@ -15,3 +15,8 @@ type List_division_field struct {
 	//Division_Name string `json:"division_name"`
 	Name string `json:"field_name" form:"field_name"`
 }
+
+type List_pivot struct {
+	DivisionName   string   `json:"division_name" form:"division_name"`
+	ListStudyField []string `json:"list_study_field" form:"list_study_field"`
+}

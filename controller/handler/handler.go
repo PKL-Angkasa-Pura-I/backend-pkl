@@ -74,4 +74,6 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 
 	api.GET("/submissions/filters/:status", cont.GetAllSubmissionByStatusController)
 
+	api.POST("/trainees/:id_code_submission", cont.CreateTraineeController)
+
 }

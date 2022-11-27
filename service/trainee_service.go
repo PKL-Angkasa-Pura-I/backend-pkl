@@ -16,3 +16,15 @@ func (s *svc) CreateTraineeService(trainee model.Trainee) error {
 func (s *svc) CountTraineeService(submission_id int) int {
 	return s.repo.CountTrainee(submission_id)
 }
+
+func (s *svc) GetAllTraineeByIDSubmissionService(id int) []model.Trainee {
+	return s.repo.GetAllTraineeByIDSubmission(id)
+}
+
+func (s *svc) GetAllTraineeService() []model.Trainee {
+	return s.repo.GetAllTrainee()
+}
+
+func (s *svc) GetOneTraineeByIDService(id int) (model.Trainee, error) {
+	return s.repo.GetOneTraineeByID(id)
+}

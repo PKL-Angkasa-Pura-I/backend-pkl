@@ -357,3 +357,13 @@ func (ce *EchoController) GetFileResponSubmissionController(c echo.Context) erro
 
 	return c.Attachment(res.ResponPathFile, name_file)
 }
+
+func (ce *EchoController) GetAllSubmissionByStatusController(c echo.Context) error {
+	param := c.Param("status")
+	submissions := ce.Svc.GetAllSubmissionByStatusService(param)
+
+	return c.JSON(200, map[string]interface{}{
+		"messages":   "success",
+		"submission": submissions,
+	})
+}

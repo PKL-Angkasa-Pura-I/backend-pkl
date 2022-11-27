@@ -72,4 +72,6 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api.GET("/submissions/:id_code/download", cont.GetFileSubmissionController)
 	api.GET("/submissions/:id_code/download/respon", cont.GetFileResponSubmissionController)
 
+	api.GET("/submissions/filters/:status", cont.GetAllSubmissionByStatusController)
+
 }

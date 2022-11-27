@@ -49,3 +49,10 @@ func (r *repositoryMysqlLayer) GetAllSubmission() []model.Submission {
 
 	return submissions
 }
+
+func (r *repositoryMysqlLayer) GetAllSubmissionByStatus(status string) []model.Submission {
+	submissions := []model.Submission{}
+	r.DB.Where("status = ?", status).Preload(clause.Associations).Find(&submissions)
+
+	return submissions
+}

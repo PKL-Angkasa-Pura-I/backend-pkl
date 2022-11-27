@@ -59,3 +59,7 @@ func (s *svc) GetSubmissionByIDService(id int) (model.Submission, error) {
 func (s *svc) UpdateSubmissionByIDService(id int, submission model.Submission) error {
 	return s.repo.UpdateSubmissionByID(id, submission)
 }
+
+func (s *svc) GetAllSubmissionByStatusService(status string) []model.Submission {
+	return s.repo.GetAllSubmissionByStatus(status)
+}

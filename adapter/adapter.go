@@ -32,6 +32,7 @@ type AdapterRepository interface {
 	GetSubmissionByID(id int) (submission model.Submission, err error)
 	UpdateSubmissionByID(id int, submission model.Submission) error
 	GetAllSubmission() []model.Submission
+	GetAllSubmissionByStatus(status string) []model.Submission
 
 	GetAdminByUsername(username string) (admin model.Admin, err error)
 }
@@ -59,6 +60,7 @@ type AdapterService interface {
 	GetSubmissionByCodeSubmissionService(code_submission string) (model.Submission, error)
 	GetSubmissionByIDService(id int) (model.Submission, error)
 	UpdateSubmissionByIDService(id int, submission model.Submission) error
+	GetAllSubmissionByStatusService(status string) []model.Submission
 
 	LoginAdmin(username, password string) (string, int)
 	GetAdminByUsernameService(username string) (model.Admin, error)

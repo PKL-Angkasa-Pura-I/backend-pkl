@@ -67,3 +67,12 @@ func (r *repositoryMysqlLayer) GetDivisionOnPivot(id int) []model.Pivot_division
 
 	return res
 }
+
+func (r *repositoryMysqlLayer) CheckDivisonField(id_division, id_study_field int) (pivot_division_field model.Pivot_division_field, err error) {
+	res := r.DB.Where("division_id = ? AND study_field_id = ?", id_division, id_study_field).Find(&pivot_division_field)
+	if res.RowsAffected < 1 {
+		err = fmt.Errorf("division and study field not found")
+	}
+
+	return
+}

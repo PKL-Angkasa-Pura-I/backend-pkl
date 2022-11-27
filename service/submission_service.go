@@ -14,10 +14,15 @@ func (s *svc) CreateSubmissionService(submission model.Submission) (string, erro
 		return "", fmt.Errorf("insert submission error")
 	}
 
+	_, err := s.repo.CheckDivisonField(int(submission.DivisionID), int(submission.Study_fieldID))
+	if err != nil {
+		return "", fmt.Errorf("can't insert submission, division and study field not match")
+	}
+
 	code, _ := nanoid.New()
 	submission.CodeSubmission = code
 
-	err := s.repo.CreateSubmission(submission)
+	err = s.repo.CreateSubmission(submission)
 	if err != nil {
 		return "", err
 	}

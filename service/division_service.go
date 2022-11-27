@@ -26,7 +26,7 @@ func (s *svc) UpdateDivisionByIDService(id int, division model.Division) error {
 }
 
 func (s *svc) DeleteDivisionByIDService(id int) error {
-	_, err := s.repo.CheckDivisionByID(id)
+	_, err := s.repo.CheckPivotDivisionByID(id)
 	if err != nil {
 		return s.repo.DeleteDivisionByID(id)
 	}

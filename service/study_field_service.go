@@ -29,7 +29,7 @@ func (s *svc) UpdateStudyFieldByIDService(id int, study_field model.Study_field)
 }
 
 func (s *svc) DeleteStudyFieldByIDService(id int) error {
-	_, err := s.repo.CheckStudyFieldByID(id)
+	_, err := s.repo.CheckPivotStudyFieldByID(id)
 	if err != nil {
 		return s.repo.DeleteStudyFieldByID(id)
 	}

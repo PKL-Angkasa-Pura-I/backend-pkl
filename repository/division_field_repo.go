@@ -36,7 +36,7 @@ func (r *repositoryMysqlLayer) DeleteOnePivotDivisionField(division_id, study_fi
 	return nil
 }
 
-func (r *repositoryMysqlLayer) CheckDivisionByID(id int) (pivot_division_field model.Pivot_division_field, err error) {
+func (r *repositoryMysqlLayer) CheckPivotDivisionByID(id int) (pivot_division_field model.Pivot_division_field, err error) {
 	res := r.DB.Where("division_id = ?", id).Find(&pivot_division_field)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("division not found")
@@ -45,7 +45,7 @@ func (r *repositoryMysqlLayer) CheckDivisionByID(id int) (pivot_division_field m
 	return
 }
 
-func (r *repositoryMysqlLayer) CheckStudyFieldByID(id int) (pivot_division_field model.Pivot_division_field, err error) {
+func (r *repositoryMysqlLayer) CheckPivotStudyFieldByID(id int) (pivot_division_field model.Pivot_division_field, err error) {
 	res := r.DB.Where("study_field_id = ?", id).Find(&pivot_division_field)
 	if res.RowsAffected < 1 {
 		err = fmt.Errorf("study field not found")

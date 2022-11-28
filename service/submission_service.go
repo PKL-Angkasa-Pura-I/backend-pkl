@@ -19,6 +19,11 @@ func (s *svc) CreateSubmissionService(submission model.Submission) (string, erro
 		return "", fmt.Errorf("can't insert submission, division and study field not match")
 	}
 
+	division, _ := s.repo.GetDivisionByID(int(submission.DivisionID))
+	if int(*division.Quota) < submission.TotalTrainee {
+		return "", fmt.Errorf("can't insert submission, exceed max quota")
+	}
+
 	code, _ := nanoid.New()
 	submission.CodeSubmission = code
 

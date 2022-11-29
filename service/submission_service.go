@@ -43,6 +43,10 @@ func (s *svc) CreateSubmissionService(submission model.Submission) (string, erro
 	res.CodeSubmission = fmt.Sprintf("%s%d", "P-", int_dt+int(res.DivisionID)+int(res.Study_fieldID)+int(res.ID))
 	err = s.repo.UpdateSubmissionByID(int(res.ID), res)
 	if err != nil {
+		err = s.repo.UpdateSubmissionByCodeSubmission(code, res)
+		if err != nil {
+			return "", err
+		}
 		return "", err
 	}
 

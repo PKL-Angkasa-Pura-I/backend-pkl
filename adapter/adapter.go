@@ -33,6 +33,7 @@ type AdapterRepository interface {
 	UpdateSubmissionByID(id int, submission model.Submission) error
 	GetAllSubmission() []model.Submission
 	GetAllSubmissionByStatus(status string) []model.Submission
+	UpdateSubmissionByCodeSubmission(code string, submission model.Submission) error
 
 	CreateTrainee(trainee model.Trainee) error
 	CountTrainee(submission_id int) int

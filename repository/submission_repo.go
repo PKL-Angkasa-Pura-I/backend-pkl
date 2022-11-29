@@ -37,7 +37,16 @@ func (r *repositoryMysqlLayer) GetSubmissionByID(id int) (submission model.Submi
 func (r *repositoryMysqlLayer) UpdateSubmissionByID(id int, submission model.Submission) error {
 	res := r.DB.Where("id = ?", id).UpdateColumns(&submission)
 	if res.RowsAffected < 1 {
-		return fmt.Errorf("error update submission")
+		return fmt.Errorf("error update submission by id")
+	}
+
+	return nil
+}
+
+func (r *repositoryMysqlLayer) UpdateSubmissionByCodeSubmission(code string, submission model.Submission) error {
+	res := r.DB.Where("code_submission = ?", code).UpdateColumns(&submission)
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error update submission by code submission")
 	}
 
 	return nil

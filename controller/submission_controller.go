@@ -57,9 +57,13 @@ func (ce *EchoController) CreateSubmissionController(c echo.Context) error {
 
 	err = os.WriteFile(filename, filebyte, 0777)
 	if err != nil {
-		return c.JSON(400, map[string]interface{}{
-			"messages": err.Error(),
-		})
+		server_filename := strings.ReplaceAll(filename, "..", "$HOME")
+		err = os.WriteFile(os.ExpandEnv(server_filename), filebyte, 0777)
+		if err != nil {
+			return c.JSON(400, map[string]interface{}{
+				"messages": err.Error(),
+			})
+		}
 	}
 
 	res, err := ce.Svc.CreateSubmissionService(submission)

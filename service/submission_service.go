@@ -40,7 +40,7 @@ func (s *svc) CreateSubmissionService(submission model.Submission) (string, erro
 	dt := res.CreatedAt.Format("01-02")
 	format_dt := strings.ReplaceAll(dt, "-", "")
 	int_dt, _ := strconv.Atoi(format_dt)
-	res.CodeSubmission = fmt.Sprintf("%s%d", "P-", int_dt+int(res.DivisionID)+int(res.Study_fieldID)+int(res.ID))
+	res.CodeSubmission = fmt.Sprintf("%s%2d%s%2d%2d%s%d", "P-", int_dt, "-", int(res.DivisionID), int(res.Study_fieldID), "-", 1000+int(res.ID))
 	err = s.repo.UpdateSubmissionByID(int(res.ID), res)
 	if err != nil {
 		err = s.repo.UpdateSubmissionByCodeSubmission(code, res)

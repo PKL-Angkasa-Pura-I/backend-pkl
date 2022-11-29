@@ -3,12 +3,14 @@ package controller
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/model"
 	"github.com/labstack/echo/v4"
 )
@@ -409,4 +411,62 @@ func (ce *EchoController) DeleteSubmissionController(c echo.Context) error {
 	return c.JSON(204, map[string]interface{}{
 		"messages": "deleted",
 	})
+}
+
+func (ce *EchoController) ExportSubmissionToExcelController(c echo.Context) error {
+	submissions := ce.Svc.GetAllSubmissionService()
+
+	var err error
+
+	file := excelize.NewFile()
+
+	file.SetCellValue("Sheet1", "A1", "ID")
+	file.SetCellValue("Sheet1", "B1", "Kode Pengajuan")
+	file.SetCellValue("Sheet1", "C1", "Nama")
+	file.SetCellValue("Sheet1", "D1", "Email")
+	file.SetCellValue("Sheet1", "E1", "Asal Sekolah")
+	file.SetCellValue("Sheet1", "F1", "Jumlah Anggota")
+	file.SetCellValue("Sheet1", "G1", "Status")
+	file.SetCellValue("Sheet1", "H1", "Submission Path File")
+	file.SetCellValue("Sheet1", "I1", "Respon Path File")
+	file.SetCellValue("Sheet1", "J1", "Tanggal Mulai")
+	file.SetCellValue("Sheet1", "K1", "Tanggal Selesai")
+	file.SetCellValue("Sheet1", "L1", "ID Divisi")
+	file.SetCellValue("Sheet1", "M1", "Nama Divisi")
+	file.SetCellValue("Sheet1", "N1", "ID Bidang Keilmuan")
+	file.SetCellValue("Sheet1", "O1", "Nama Bidang Keilmuan")
+	file.SetCellValue("Sheet1", "P1", "Created At")
+
+	err = file.AutoFilter("Sheet1", "A1", "P1", "")
+	if err != nil {
+		log.Fatal("ERROR", err.Error())
+	}
+
+	for i := 0; i < len(submissions); i++ {
+		file.SetCellValue("Sheet1", fmt.Sprintf("A%d", i+2), submissions[i].ID)
+		file.SetCellValue("Sheet1", fmt.Sprintf("B%d", i+2), submissions[i].CodeSubmission)
+		file.SetCellValue("Sheet1", fmt.Sprintf("C%d", i+2), submissions[i].Name)
+		file.SetCellValue("Sheet1", fmt.Sprintf("D%d", i+2), submissions[i].Email)
+		file.SetCellValue("Sheet1", fmt.Sprintf("E%d", i+2), submissions[i].SchoolOrigin)
+		file.SetCellValue("Sheet1", fmt.Sprintf("F%d", i+2), submissions[i].TotalTrainee)
+		file.SetCellValue("Sheet1", fmt.Sprintf("G%d", i+2), submissions[i].Status)
+		file.SetCellValue("Sheet1", fmt.Sprintf("H%d", i+2), submissions[i].SubmissionPathFile)
+		file.SetCellValue("Sheet1", fmt.Sprintf("I%d", i+2), submissions[i].ResponPathFile)
+		file.SetCellValue("Sheet1", fmt.Sprintf("J%d", i+2), submissions[i].StartDate)
+		file.SetCellValue("Sheet1", fmt.Sprintf("K%d", i+2), submissions[i].EndDate)
+		file.SetCellValue("Sheet1", fmt.Sprintf("L%d", i+2), submissions[i].DivisionID)
+		file.SetCellValue("Sheet1", fmt.Sprintf("M%d", i+2), submissions[i].Division.Name)
+		file.SetCellValue("Sheet1", fmt.Sprintf("N%d", i+2), submissions[i].Study_fieldID)
+		file.SetCellValue("Sheet1", fmt.Sprintf("O%d", i+2), submissions[i].Study_field.Name)
+		file.SetCellValue("Sheet1", fmt.Sprintf("P%d", i+2), submissions[i].CreatedAt)
+	}
+
+	err = file.SaveAs("../uploads/export.xlsx")
+	if err != nil {
+		return c.JSON(500, map[string]interface{}{
+			"messages": "error save file",
+		})
+	}
+
+	return c.Attachment("../uploads/export.xlsx", "export.xlsx")
 }

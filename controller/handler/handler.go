@@ -78,6 +78,8 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api.POST("/submissions", cont.CreateSubmissionController)
 	api.GET("/submissions", cont.GetAllSubmissionController)
 
+	api.GET("/submissions/export", cont.ExportSubmissionToExcelController)
+
 	api.GET("/submissions/:id_code", cont.GetOneSubmissionController)
 	api.DELETE("/submissions/:id_code", cont.DeleteSubmissionController)
 	api.PUT("/submissions/:id_code/accept", cont.AcceptSubmissionController)

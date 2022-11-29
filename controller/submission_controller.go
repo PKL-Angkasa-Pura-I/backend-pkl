@@ -57,8 +57,9 @@ func (ce *EchoController) CreateSubmissionController(c echo.Context) error {
 
 	err = os.WriteFile(filename, filebyte, 0777)
 	if err != nil {
-		server_filename := strings.ReplaceAll(filename, "..", "$HOME")
-		err = os.WriteFile(os.ExpandEnv(server_filename), filebyte, 0777)
+		server_filename := strings.ReplaceAll(filename, "..", "")
+		server_filename_path := fmt.Sprintf("%s%s", "$HOME/pkl", server_filename)
+		err = os.WriteFile(os.ExpandEnv(server_filename_path), filebyte, 0777)
 		if err != nil {
 			return c.JSON(400, map[string]interface{}{
 				"messages": err.Error(),

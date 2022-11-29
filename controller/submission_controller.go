@@ -55,17 +55,17 @@ func (ce *EchoController) CreateSubmissionController(c echo.Context) error {
 	filename := "../uploads/submission/" + strconv.FormatInt(time.Now().Unix(), 10) + ".pdf"
 	submission.SubmissionPathFile = filename
 
-	res, err := ce.Svc.CreateSubmissionService(submission)
+	err = os.WriteFile(filename, filebyte, 0777)
 	if err != nil {
-		return c.JSON(500, map[string]interface{}{
+		return c.JSON(400, map[string]interface{}{
 			"messages": err.Error(),
 		})
 	}
 
-	err = os.WriteFile(filename, filebyte, 0777)
+	res, err := ce.Svc.CreateSubmissionService(submission)
 	if err != nil {
-		return c.JSON(400, map[string]interface{}{
-			"messages": "error write new file",
+		return c.JSON(500, map[string]interface{}{
+			"messages": err.Error(),
 		})
 	}
 

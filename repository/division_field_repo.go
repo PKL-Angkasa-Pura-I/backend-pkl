@@ -76,3 +76,23 @@ func (r *repositoryMysqlLayer) CheckDivisonField(id_division, id_study_field int
 
 	return
 }
+
+func (r *repositoryMysqlLayer) DeleteAllDivisionField(division_id int) error {
+	res := r.DB.Unscoped().Where("division_id = ?", division_id).Delete(&model.Pivot_division_field{})
+
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error delete, division on pivot not found")
+	}
+
+	return nil
+}
+
+func (r *repositoryMysqlLayer) DeleteAllStudyField(study_field_id int) error {
+	res := r.DB.Unscoped().Where("study_field_id = ?", study_field_id).Delete(&model.Pivot_division_field{})
+
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error delete, study field on pivot not found")
+	}
+
+	return nil
+}

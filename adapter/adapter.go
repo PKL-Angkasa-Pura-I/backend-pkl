@@ -26,6 +26,8 @@ type AdapterRepository interface {
 	GetAllDivisionStudyField() []model.Pivot_division_field
 	GetDivisionOnPivot(id int) []model.Pivot_division_field
 	CheckDivisonField(id_division, id_study_field int) (pivot_division_field model.Pivot_division_field, err error)
+	DeleteAllDivisionField(division_id int) error
+	DeleteAllStudyField(study_field_id int) error
 
 	CreateSubmission(submission model.Submission) error
 	GetSubmissionByCodeSubmission(code_submission string) (submission model.Submission, err error)

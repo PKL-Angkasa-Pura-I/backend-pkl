@@ -1,6 +1,9 @@
 package handler
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/config"
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/controller"
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/database"
@@ -27,6 +30,17 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	e.GET("/pkl_v1/health", func(c echo.Context) error {
 		return c.JSON(200, map[string]string{
 			"message": "your request awesome",
+		})
+	})
+
+	mydir, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	e.GET("/pkl_v1/workdir", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{
+			"message": mydir,
 		})
 	})
 

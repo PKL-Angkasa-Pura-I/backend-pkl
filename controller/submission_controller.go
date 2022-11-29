@@ -52,7 +52,7 @@ func (ce *EchoController) CreateSubmissionController(c echo.Context) error {
 		})
 	}
 
-	filename := /* "../uploads/submission/" +  */ strconv.FormatInt(time.Now().Unix(), 10) + ".pdf"
+	filename := "../uploads/" + strconv.FormatInt(time.Now().Unix(), 10) + ".pdf"
 	submission.SubmissionPathFile = filename
 
 	err = os.WriteFile(filename, filebyte, 0777)

@@ -22,6 +22,8 @@ services:
       DB_HOST: "db_pkl_app"
     ports:
       - "80:8080"
+    volumes:
+      - ./datapkl:/uploads
     depends_on: 
       db_pkl_app:
         condition: service_healthy # memastikan kalau sudah bisa konek dan login sesuai healthcheck

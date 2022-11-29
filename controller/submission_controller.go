@@ -199,7 +199,7 @@ func (ce *EchoController) AcceptSubmissionController(c echo.Context) error {
 
 	defer src.Close()
 
-	filename := "../uploads/respon/" + res.CodeSubmission + "_" + strconv.FormatInt(time.Now().Unix(), 10) + "_diterima_respon.pdf"
+	filename := "../uploads/" + res.CodeSubmission + "_" + strconv.FormatInt(time.Now().Unix(), 10) + "_diterima_respon.pdf"
 	res.ResponPathFile = filename
 	res.Status = "Diterima"
 
@@ -277,7 +277,7 @@ func (ce *EchoController) RejectSubmissionController(c echo.Context) error {
 
 	defer src.Close()
 
-	filename := "../uploads/respon/" + res.CodeSubmission + "_" + strconv.FormatInt(time.Now().Unix(), 10) + "_ditolak_respon.pdf"
+	filename := "../uploads/" + res.CodeSubmission + "_" + strconv.FormatInt(time.Now().Unix(), 10) + "_ditolak_respon.pdf"
 	res.ResponPathFile = filename
 	res.Status = "Ditolak"
 

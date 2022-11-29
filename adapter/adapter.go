@@ -34,6 +34,7 @@ type AdapterRepository interface {
 	GetAllSubmission() []model.Submission
 	GetAllSubmissionByStatus(status string) []model.Submission
 	UpdateSubmissionByCodeSubmission(code string, submission model.Submission) error
+	DeleteSubmissionByID(id int) error
 
 	CreateTrainee(trainee model.Trainee) error
 	CountTrainee(submission_id int) int
@@ -68,6 +69,7 @@ type AdapterService interface {
 	GetSubmissionByIDService(id int) (model.Submission, error)
 	UpdateSubmissionByIDService(id int, submission model.Submission) error
 	GetAllSubmissionByStatusService(status string) []model.Submission
+	DeleteSubmissionByIDService(id int) error
 
 	CreateTraineeService(trainee model.Trainee) error
 	CountTraineeService(submission_id int) int

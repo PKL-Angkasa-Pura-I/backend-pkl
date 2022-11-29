@@ -203,17 +203,17 @@ func (ce *EchoController) AcceptSubmissionController(c echo.Context) error {
 	res.ResponPathFile = filename
 	res.Status = "Diterima"
 
-	err = ce.Svc.UpdateSubmissionByIDService(int(res.ID), res)
-	if err != nil {
-		return c.JSON(500, map[string]interface{}{
-			"messages": "no change",
-		})
-	}
-
 	err = os.WriteFile(filename, filebyte, 0777)
 	if err != nil {
 		return c.JSON(400, map[string]interface{}{
 			"messages": "error write new file respon",
+		})
+	}
+
+	err = ce.Svc.UpdateSubmissionByIDService(int(res.ID), res)
+	if err != nil {
+		return c.JSON(500, map[string]interface{}{
+			"messages": "no change",
 		})
 	}
 
@@ -281,17 +281,17 @@ func (ce *EchoController) RejectSubmissionController(c echo.Context) error {
 	res.ResponPathFile = filename
 	res.Status = "Ditolak"
 
-	err = ce.Svc.UpdateSubmissionByIDService(int(res.ID), res)
-	if err != nil {
-		return c.JSON(500, map[string]interface{}{
-			"messages": "no change",
-		})
-	}
-
 	err = os.WriteFile(filename, filebyte, 0777)
 	if err != nil {
 		return c.JSON(400, map[string]interface{}{
 			"messages": "error write new file respon",
+		})
+	}
+
+	err = ce.Svc.UpdateSubmissionByIDService(int(res.ID), res)
+	if err != nil {
+		return c.JSON(500, map[string]interface{}{
+			"messages": "no change",
 		})
 	}
 
@@ -374,5 +374,39 @@ func (ce *EchoController) GetAllSubmissionByStatusController(c echo.Context) err
 	return c.JSON(200, map[string]interface{}{
 		"messages":   "success",
 		"submission": submissions,
+	})
+}
+
+func (ce *EchoController) DeleteSubmissionController(c echo.Context) error {
+
+	var res model.Submission
+	var err error
+	param := c.Param("id_code")
+	if strings.Contains(param, "P-") {
+		res, err = ce.Svc.GetSubmissionByCodeSubmissionService(param)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "file submission not found",
+			})
+		}
+	} else {
+		id_int, _ := strconv.Atoi(param)
+		res, err = ce.Svc.GetSubmissionByIDService(id_int)
+		if err != nil {
+			return c.JSON(404, map[string]interface{}{
+				"messages": "file submission not found",
+			})
+		}
+	}
+
+	err = ce.Svc.DeleteSubmissionByIDService(int(res.ID))
+	if err != nil {
+		return c.JSON(404, map[string]interface{}{
+			"messages": err.Error(),
+		})
+	}
+
+	return c.JSON(204, map[string]interface{}{
+		"messages": "deleted",
 	})
 }

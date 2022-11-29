@@ -65,6 +65,7 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	api.GET("/submissions", cont.GetAllSubmissionController)
 
 	api.GET("/submissions/:id_code", cont.GetOneSubmissionController)
+	api.DELETE("/submissions/:id_code", cont.DeleteSubmissionController)
 	api.PUT("/submissions/:id_code/accept", cont.AcceptSubmissionController)
 	api.PUT("/submissions/:id_code/reject", cont.RejectSubmissionController)
 	api.PUT("/submissions/:id_code/cancel", cont.CancelSubmissionController)

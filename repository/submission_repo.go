@@ -65,3 +65,12 @@ func (r *repositoryMysqlLayer) GetAllSubmissionByStatus(status string) []model.S
 
 	return submissions
 }
+
+func (r *repositoryMysqlLayer) DeleteSubmissionByID(id int) error {
+	res := r.DB.Unscoped().Delete(&model.Submission{}, id)
+	if res.RowsAffected < 1 {
+		return fmt.Errorf("error delete submission, id submission not found")
+	}
+
+	return nil
+}

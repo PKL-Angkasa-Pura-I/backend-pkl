@@ -26,10 +26,7 @@ func (s *svc) UpdateDivisionByIDService(id int, division model.Division) error {
 }
 
 func (s *svc) DeleteDivisionByIDService(id int) error {
-	err := s.repo.DeleteAllDivisionField(id)
-	if err != nil {
-		return err
-	}
+	s.repo.DeleteAllDivisionField(id)
 
 	return s.repo.DeleteDivisionByID(id)
 }

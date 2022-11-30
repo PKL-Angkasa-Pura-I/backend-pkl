@@ -29,10 +29,7 @@ func (s *svc) UpdateStudyFieldByIDService(id int, study_field model.Study_field)
 }
 
 func (s *svc) DeleteStudyFieldByIDService(id int) error {
-	err := s.repo.DeleteAllStudyField(id)
-	if err != nil {
-		return err
-	}
+	s.repo.DeleteAllStudyField(id)
 
 	return s.repo.DeleteStudyFieldByID(id)
 }

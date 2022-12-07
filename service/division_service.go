@@ -30,3 +30,18 @@ func (s *svc) DeleteDivisionByIDService(id int) error {
 
 	return s.repo.DeleteDivisionByID(id)
 }
+
+func (s *svc) GetChartAllDivisionService() []model.Chart_division {
+	divisions := s.repo.GetAllDivision()
+	len_division := len(divisions)
+
+	res := make([]model.Chart_division, len_division)
+	for i, division := range divisions {
+		res[i].ID = division.ID
+		res[i].Name = division.Name
+		res[i].Quota = division.Quota
+		res[i].Total = uint(s.repo.GetTotalAcceptedDivision(int(division.ID)))
+	}
+
+	return res
+}

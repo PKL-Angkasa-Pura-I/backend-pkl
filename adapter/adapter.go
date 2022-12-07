@@ -11,6 +11,7 @@ type AdapterRepository interface {
 	GetDivisionByID(id int) (division model.Division, err error)
 	UpdateDivisionByID(id int, division model.Division) error
 	DeleteDivisionByID(id int) error
+	GetTotalAcceptedDivision(submission_id int) int
 
 	CreateStudyField(study_field model.Study_field) error
 	GetAllStudyField() []model.Study_field
@@ -53,6 +54,7 @@ type AdapterService interface {
 	GetDivisionByIDService(id int) (model.Division, error)
 	UpdateDivisionByIDService(id int, division model.Division) error
 	DeleteDivisionByIDService(id int) error
+	GetChartAllDivisionService() []model.Chart_division
 
 	CreateStudyFieldService(study_field model.Study_field) error
 	GetAllStudyFieldService() []model.Study_field

@@ -98,4 +98,6 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 
 	api.GET("/trainees/details/:id", cont.GetOneTraineeController)
 
+	api.GET("/charts/all_division", cont.GetChartAllDivisionController)
+
 }

@@ -120,3 +120,13 @@ func (ce *EchoController) DeleteDivisionController(c echo.Context) error {
 		"messages": "deleted",
 	})
 }
+
+func (ce *EchoController) GetChartAllDivisionController(c echo.Context) error {
+
+	divisions := ce.Svc.GetChartAllDivisionService()
+
+	return c.JSON(200, map[string]interface{}{
+		"messages": "success",
+		"division": divisions,
+	})
+}

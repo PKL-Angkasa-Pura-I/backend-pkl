@@ -48,3 +48,16 @@ func (r *repositoryMysqlLayer) DeleteDivisionByID(id int) error {
 
 	return nil
 }
+
+func (r *repositoryMysqlLayer) GetTotalAcceptedDivision(division_id int) int {
+	//var count int64
+	//r.DB.Model(&model.Submission{}).Where("division_id = ? AND status = ?", submission_id, "Diterima").Count(&count)
+
+	type NResult struct {
+		N int64
+	}
+	var n NResult
+	r.DB.Table("submissions").Select("sum(total_trainee) as n").Where("division_id = ? AND status = ?", division_id, "Diterima").Scan(&n)
+
+	return int(n.N)
+}

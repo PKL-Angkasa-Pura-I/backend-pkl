@@ -12,7 +12,7 @@ type Pivot_division_field struct {
 }
 
 type List_division_field struct {
-	//Division_Name string `json:"division_name"`
+	ID   uint   `json:"id" form:"id"`
 	Name string `json:"field_name" form:"field_name"`
 }
 

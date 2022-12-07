@@ -17,7 +17,7 @@ func (r *repositoryMysqlLayer) CreatePivotDivisionField(pivot_division_field mod
 
 func (r *repositoryMysqlLayer) GetAllDivisionField(division_id int) []model.List_division_field {
 	res := []model.List_division_field{}
-	r.DB.Model(&model.Pivot_division_field{}).Select("study_fields.name").
+	r.DB.Model(&model.Pivot_division_field{}).Select("study_fields.id,study_fields.name").
 		Joins("JOIN divisions on divisions.id = pivot_division_fields.division_id").
 		Joins("JOIN study_fields on study_fields.id = pivot_division_fields.study_field_id").
 		Where("pivot_division_fields.division_id = ?", division_id).

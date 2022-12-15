@@ -4,20 +4,19 @@ import (
 	"strconv"
 
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/model"
-	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 )
 
 func (ce *EchoController) CreateDivisionController(c echo.Context) error {
 
-	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+	/* username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
 
 	_, err := ce.Svc.GetAdminByUsernameService(username)
 	if err != nil {
 		return c.JSON(403, map[string]interface{}{
 			"messages": "forbidden",
 		})
-	}
+	} */
 
 	division := model.Division{}
 	if err := c.Bind(&division); err != nil {
@@ -26,7 +25,7 @@ func (ce *EchoController) CreateDivisionController(c echo.Context) error {
 		})
 	}
 
-	err = ce.Svc.CreateDivisionService(division)
+	err := ce.Svc.CreateDivisionService(division)
 	if err != nil {
 		return c.JSON(500, map[string]interface{}{
 			"messages": err.Error(),
@@ -67,14 +66,14 @@ func (ce *EchoController) GetOneDivisionController(c echo.Context) error {
 
 func (ce *EchoController) UpdateDivisionController(c echo.Context) error {
 
-	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+	/* username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
 
 	_, err := ce.Svc.GetAdminByUsernameService(username)
 	if err != nil {
 		return c.JSON(403, map[string]interface{}{
 			"messages": "forbidden",
 		})
-	}
+	} */
 
 	id := c.Param("id")
 	id_int, _ := strconv.Atoi(id)
@@ -86,7 +85,7 @@ func (ce *EchoController) UpdateDivisionController(c echo.Context) error {
 		})
 	}
 
-	err = ce.Svc.UpdateDivisionByIDService(id_int, division)
+	err := ce.Svc.UpdateDivisionByIDService(id_int, division)
 	if err != nil {
 		return c.JSON(404, map[string]interface{}{
 			"messages": "no id found or no change",
@@ -99,25 +98,35 @@ func (ce *EchoController) UpdateDivisionController(c echo.Context) error {
 }
 
 func (ce *EchoController) DeleteDivisionController(c echo.Context) error {
-	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+	/* username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
 
 	_, err := ce.Svc.GetAdminByUsernameService(username)
 	if err != nil {
 		return c.JSON(403, map[string]interface{}{
 			"messages": "forbidden",
 		})
-	}
+	} */
 
 	id := c.Param("id")
 	id_int, _ := strconv.Atoi(id)
-	err = ce.Svc.DeleteDivisionByIDService(id_int)
+	err := ce.Svc.DeleteDivisionByIDService(id_int)
 	if err != nil {
 		return c.JSON(404, map[string]interface{}{
-			"messages": "division not found",
+			"messages": err.Error(),
 		})
 	}
 
 	return c.JSON(204, map[string]interface{}{
 		"messages": "deleted",
+	})
+}
+
+func (ce *EchoController) GetChartAllDivisionController(c echo.Context) error {
+
+	divisions := ce.Svc.GetChartAllDivisionService()
+
+	return c.JSON(200, map[string]interface{}{
+		"messages": "success",
+		"division": divisions,
 	})
 }

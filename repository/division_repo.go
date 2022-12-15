@@ -43,8 +43,21 @@ func (r *repositoryMysqlLayer) UpdateDivisionByID(id int, division model.Divisio
 func (r *repositoryMysqlLayer) DeleteDivisionByID(id int) error {
 	res := r.DB.Unscoped().Delete(&model.Division{}, id)
 	if res.RowsAffected < 1 {
-		return fmt.Errorf("error delete division")
+		return fmt.Errorf("error delete division, division not found")
 	}
 
 	return nil
+}
+
+func (r *repositoryMysqlLayer) GetTotalAcceptedDivision(division_id int) int {
+	//var count int64
+	//r.DB.Model(&model.Submission{}).Where("division_id = ? AND status = ?", submission_id, "Diterima").Count(&count)
+
+	type NResult struct {
+		N int64
+	}
+	var n NResult
+	r.DB.Table("submissions").Select("sum(total_trainee) as n").Where("division_id = ? AND status = ?", division_id, "Diterima").Scan(&n)
+
+	return int(n.N)
 }

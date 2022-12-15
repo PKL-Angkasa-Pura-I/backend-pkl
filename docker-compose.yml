@@ -1,0 +1,32 @@
+version: "2.1"
+services:
+  db_pkl_app:
+      image: "mysql:latest"
+      restart: always
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD : anakbaru
+        MYSQL_DATABASE: ap_pkl
+      volumes:
+        - my-pklvolume:/var/lib/mysql
+      healthcheck:   # wajib implementasi health check jika condition service_healthy
+        test: ["CMD", "mysql", "-u", "root",  "-panakbaru", "-e", "show schemas"]
+        interval: 10s 
+      
+  be_pkl_app:
+    build: .
+    restart: always
+    environment:
+      SERVER_ADDRESS: "0.0.0.0:8080"
+      DB_HOST: "db_pkl_app"
+    ports:
+      - "80:8080"
+    volumes:
+      - ./datapkl:/uploads
+    depends_on: 
+      db_pkl_app:
+        condition: service_healthy # memastikan kalau sudah bisa konek dan login sesuai healthcheck
+        
+volumes:
+  my-pklvolume:

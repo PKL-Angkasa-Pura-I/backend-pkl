@@ -10,6 +10,7 @@ type Config struct {
 	DB_HOST        string
 	DB_NAME        string
 	JWT_KEY        string
+	LOC            string
 }
 
 func InitConfiguration() Config {
@@ -17,11 +18,12 @@ func InitConfiguration() Config {
 	return Config{
 		SERVER_ADDRESS: GetOrDefault("SERVER_ADDRESS", "0.0.0.0:1323"),
 		DB_USERNAME:    GetOrDefault("DB_USERNAME", "root"),
-		DB_PASSWORD:    GetOrDefault("DB_PASSWORD", ""),
+		DB_PASSWORD:    GetOrDefault("DB_PASSWORD", "anakbaru"),
 		DB_NAME:        GetOrDefault("DB_NAME", "ap_pkl"),
 		DB_PORT:        GetOrDefault("DB_PORT", "3306"),
 		DB_HOST:        GetOrDefault("DB_HOST", "127.0.0.1"),
 		JWT_KEY:        GetOrDefault("JWT_KEY", "sungguhRahasia"),
+		LOC:            GetOrDefault("LOC", "Asia%2FJakarta"),
 	}
 }
 

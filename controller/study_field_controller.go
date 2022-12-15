@@ -4,20 +4,19 @@ import (
 	"strconv"
 
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/model"
-	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 )
 
 func (ce *EchoController) CreateStudyFieldController(c echo.Context) error {
 
-	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+	/* username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
 
 	_, err := ce.Svc.GetAdminByUsernameService(username)
 	if err != nil {
 		return c.JSON(403, map[string]interface{}{
 			"messages": "forbidden",
 		})
-	}
+	} */
 
 	study_field := model.Study_field{}
 	if err := c.Bind(&study_field); err != nil {
@@ -26,7 +25,7 @@ func (ce *EchoController) CreateStudyFieldController(c echo.Context) error {
 		})
 	}
 
-	err = ce.Svc.CreateStudyFieldService(study_field)
+	err := ce.Svc.CreateStudyFieldService(study_field)
 	if err != nil {
 		return c.JSON(500, map[string]interface{}{
 			"messages": err.Error(),
@@ -67,14 +66,14 @@ func (ce *EchoController) GetOneStudyFieldController(c echo.Context) error {
 
 func (ce *EchoController) UpdateStudyFieldController(c echo.Context) error {
 
-	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+	/* username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
 
 	_, err := ce.Svc.GetAdminByUsernameService(username)
 	if err != nil {
 		return c.JSON(403, map[string]interface{}{
 			"messages": "forbidden",
 		})
-	}
+	} */
 
 	id := c.Param("id")
 	id_int, _ := strconv.Atoi(id)
@@ -86,7 +85,7 @@ func (ce *EchoController) UpdateStudyFieldController(c echo.Context) error {
 		})
 	}
 
-	err = ce.Svc.UpdateStudyFieldByIDService(id_int, study_field)
+	err := ce.Svc.UpdateStudyFieldByIDService(id_int, study_field)
 	if err != nil {
 		return c.JSON(404, map[string]interface{}{
 			"messages": "no id found or no change",
@@ -99,21 +98,21 @@ func (ce *EchoController) UpdateStudyFieldController(c echo.Context) error {
 }
 
 func (ce *EchoController) DeleteStudyFieldController(c echo.Context) error {
-	username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
+	/* username := ce.Svc.ClaimToken(c.Get("user").(*jwt.Token))
 
 	_, err := ce.Svc.GetAdminByUsernameService(username)
 	if err != nil {
 		return c.JSON(403, map[string]interface{}{
 			"messages": "forbidden",
 		})
-	}
+	} */
 
 	id := c.Param("id")
 	id_int, _ := strconv.Atoi(id)
-	err = ce.Svc.DeleteStudyFieldByIDService(id_int)
+	err := ce.Svc.DeleteStudyFieldByIDService(id_int)
 	if err != nil {
 		return c.JSON(404, map[string]interface{}{
-			"messages": "division not found",
+			"messages": err.Error(),
 		})
 	}
 

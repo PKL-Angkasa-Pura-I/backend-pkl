@@ -14,12 +14,13 @@ import (
 func InitDB(conf config.Config) *gorm.DB {
 
 	conectionString := fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
+		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=%s",
 		conf.DB_USERNAME,
 		conf.DB_PASSWORD,
 		conf.DB_HOST,
 		conf.DB_PORT,
 		conf.DB_NAME,
+		conf.LOC,
 	)
 	DB, err := gorm.Open(mysql.Open(conectionString), &gorm.Config{})
 	if err != nil {
@@ -34,6 +35,6 @@ func InitDB(conf config.Config) *gorm.DB {
 		})
 	}
 
-	DB.AutoMigrate(&model.Division{}, &model.Study_field{})
+	DB.AutoMigrate(&model.Division{}, &model.Study_field{}, &model.Pivot_division_field{}, &model.Submission{}, &model.Trainee{})
 	return DB
 }

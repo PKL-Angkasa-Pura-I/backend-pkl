@@ -46,6 +46,7 @@ type AdapterRepository interface {
 	GetOneTraineeByID(id int) (trainee model.Trainee, err error)
 
 	GetAdminByUsername(username string) (admin model.Admin, err error)
+	UpdateAdminByID(id int, admin model.Admin) error
 }
 
 type AdapterService interface {
@@ -83,6 +84,7 @@ type AdapterService interface {
 
 	LoginAdmin(username, password string) (string, int)
 	GetAdminByUsernameService(username string) (model.Admin, error)
+	ChangePassAdminService(oldpass, newpass string) error
 
 	ClaimToken(bearer *jwt.Token) string
 }

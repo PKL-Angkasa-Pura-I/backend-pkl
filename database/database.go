@@ -6,6 +6,7 @@ import (
 
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/config"
 	"github.com/PKL-Angkasa-Pura-I/backend-pkl/model"
+	"golang.org/x/crypto/bcrypt"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -29,9 +30,11 @@ func InitDB(conf config.Config) *gorm.DB {
 
 	admin := DB.Migrator().HasTable(&model.Admin{})
 	if !admin {
+		pass := []byte("admin123")
+		hash, _ := bcrypt.GenerateFromPassword(pass, bcrypt.DefaultCost)
 		DB.Migrator().CreateTable(&model.Admin{})
 		DB.Model(&model.Admin{}).Create([]map[string]interface{}{
-			{"username": "admin", "password": "admin123", "created_at": time.Now()},
+			{"username": "admin", "password": string(hash), "created_at": time.Now()},
 		})
 	}
 

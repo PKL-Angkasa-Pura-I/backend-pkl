@@ -55,6 +55,8 @@ func RegisterGroupAPI(e *echo.Echo, conf config.Config) {
 	m.LogMiddleware(e)
 	api.POST("/admins/login", cont.LoginAdminController)
 
+	api.POST("/admins/passwords", cont.ChangePassAdminController)
+
 	api.POST("/divisions", cont.CreateDivisionController)
 	api.GET("/divisions", cont.GetAllDivisionController)
 
